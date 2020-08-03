@@ -7,6 +7,8 @@ Entrez la commande suivante dans votre terminal:
 
 ### Création BDD
 
+`rails db:create`
+
 `rails db:migrate`
 
 ### Initialisation BDD
@@ -31,3 +33,12 @@ Une fois dans la console Rails (`rails c`) vous pourrez explorer les tables de d
 `tp PrivateMessage.all`
 
 `tp City.all`
+
+
+## Connexion au site
+
+`rails server`
+
+Une fois le server connecté, rendez-vous sur :
+
+http://localhost:3000/
