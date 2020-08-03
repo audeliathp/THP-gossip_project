@@ -26,7 +26,7 @@ end
 User.create(
   first_name: Faker::Name.first_name, 
   last_name: Faker::Name.last_name, 
-  description: Faker::ChuckNorris.fact,
+  description: Faker::Movie.quote,
   email: Faker::Name.last_name + "@mail.com",
   age:rand(13..100),
   city_id: City.find(rand(City.first.id..City.last.id)).id
@@ -35,8 +35,8 @@ end
 
 20.times do
 Gossip.create(
-  title: Faker::Hipster.sentence,
-  content: Faker::Hipster.paragraphs,
+  title: Faker::ChuckNorris.unique.fact,
+  content: Faker::Hipster.paragraph(sentence_count: 2, supplemental: false, random_sentences_to_add: 4),
   user_id: User.find(rand(User.first.id..User.last.id)).id
 )
 end
@@ -52,10 +52,10 @@ JoinTableTagGossip.create(
 )
 end
 
-50.times do
-PrivateMessage.create(
-  content: Faker::ChuckNorris.fact,
-  recipient_id: User.find(rand(User.first.id..User.last.id)).id,
-  sender_id: User.find(rand(User.first.id..User.last.id)).id
-)
+
+20.times do
+  PrivateMessage.create(sender: User.all.sample, content: Faker::Quote.unique.most_interesting_man_in_the_world)
+  rand(1..6).times do
+    JoinPmReceiver.create(private_message: PrivateMessage.all.last, recipient: User.all.sample)
+  end
 end
