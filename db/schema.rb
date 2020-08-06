@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2020_08_06_183138) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "cities", force: :cascade do |t|
     t.string "name"
     t.string "zip_code"
@@ -21,8 +24,8 @@ ActiveRecord::Schema.define(version: 2020_08_06_183138) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
-    t.integer "user_id"
-    t.integer "gossip_id"
+    t.bigint "user_id"
+    t.bigint "gossip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["gossip_id"], name: "index_comments_on_gossip_id"
@@ -32,15 +35,15 @@ ActiveRecord::Schema.define(version: 2020_08_06_183138) do
   create_table "gossips", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_gossips_on_user_id"
   end
 
   create_table "join_pm_receivers", force: :cascade do |t|
-    t.integer "private_message_id"
-    t.integer "recipient_id"
+    t.bigint "private_message_id"
+    t.bigint "recipient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["private_message_id"], name: "index_join_pm_receivers_on_private_message_id"
@@ -48,8 +51,8 @@ ActiveRecord::Schema.define(version: 2020_08_06_183138) do
   end
 
   create_table "join_table_tag_gossips", force: :cascade do |t|
-    t.integer "tag_id"
-    t.integer "gossip_id"
+    t.bigint "tag_id"
+    t.bigint "gossip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["gossip_id"], name: "index_join_table_tag_gossips_on_gossip_id"
@@ -57,9 +60,9 @@ ActiveRecord::Schema.define(version: 2020_08_06_183138) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "content_type"
-    t.integer "content_id"
+    t.bigint "content_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["content_type", "content_id"], name: "index_likes_on_content_type_and_content_id"
@@ -68,8 +71,8 @@ ActiveRecord::Schema.define(version: 2020_08_06_183138) do
 
   create_table "private_messages", force: :cascade do |t|
     t.text "content"
-    t.integer "recipient_id"
-    t.integer "sender_id"
+    t.bigint "recipient_id"
+    t.bigint "sender_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recipient_id"], name: "index_private_messages_on_recipient_id"
@@ -88,7 +91,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_183138) do
     t.text "description"
     t.string "email"
     t.integer "age"
-    t.integer "city_id"
+    t.bigint "city_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_users_on_city_id"
