@@ -24,12 +24,12 @@ City.create(
 end
 
 User.create(
-  first_name: "Anon", 
-  last_name: "Ymous", 
-  description: "You can't see me but i'm not John Cena",
-  email: "anonymous@email.com",
-  password: "123456",
-  password_confirmation: "123456",
+  first_name: "Ima", 
+  last_name: "GL", 
+  description: "me :D",
+  email: "test@gmail.com",
+  password: "azerty",
+  password_confirmation: "azerty",
   age:rand(13..100),
   city_id: City.all.sample.id
 )
