@@ -1,18 +1,24 @@
 Rails.application.routes.draw do
   #home
-  root to: 'pages#welcome'
-  get '/welcome', to: 'pages#welcome'
-  #home personnalisée
-  get '/welcome/:first_name', to:'pages#welcome'
+  root to: 'gossips#index'
 
   #pages menu
   get '/team', to: 'pages#team'
   get '/contact', to: 'pages#contact'
 
-  #pages gossips
-  get '/gossip/:id', to: 'pages#gossip', as: "gossip"
+  #gossips
+  resources :gossips do
+    resources :comments, only: [:create, :edit, :update, :destroy]
+    resources :like, only: [:create, :destroy]
+  end
 
-  #pages users
-  get '/user/:id', to: 'pages#user', as: "user"
+  #users
+  resources:users, only: [:new, :create, :show]
+
+  #cities
+  resources:cities, only: [:show]
+
+  #login/logout
+  resources:sessions, only: [:new, :create, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
